@@ -47,7 +47,9 @@ mcp__codex__codex:
     1. Score this work 1-10 for a top venue
     2. List remaining critical weaknesses (ranked by severity)
     3. For each weakness, specify the MINIMUM fix (experiment, analysis, or reframing)
-    4. State clearly: is this READY for submission? Yes/No/Almost
+    4. Overclaiming check: is the contribution anchored on foundational classics when it
+       should engage with more recent "middle" papers? Flag if so.
+    5. State clearly: is this READY for submission? Yes/No/Almost
 
     Be brutally honest. If the work is ready, say so clearly.
 ```

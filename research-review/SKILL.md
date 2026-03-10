@@ -42,6 +42,10 @@ mcp__codex__codex:
     3. Narrative and framing weaknesses — is the contribution positioned correctly in the literature?
     4. Whether the contribution is sufficient for a top management journal
     5. Missing robustness checks or supplementary analyses
+    6. Overclaiming check — is the paper anchoring its contribution on foundational/classic papers
+       (e.g., March 1991, Granovetter 1973) when it should be engaging with more recent "middle"
+       papers that extended those classics? The contribution should respond to specific recent work,
+       not claim to revise a foundational theory.
     Please be brutally honest.
 ```
 

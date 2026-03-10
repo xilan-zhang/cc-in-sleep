@@ -71,13 +71,17 @@ For each relevant paper, extract:
 - Identify consensus vs disagreements in the field
 - Find gaps that our work could fill
 - Flag any **contribution threats** — papers that already make a similar claim
+- **Classify each paper as context or anchor:**
+  - **Context papers** (classics/foundational): Cited for framing. You build ON these, not against them.
+  - **Anchor papers** (middle papers, typically 2005-present): The specific work you'd directly extend, qualify, or build a boundary condition on. These are your conversation partners.
+  - Your contribution should respond to anchors. If you find yourself "challenging March (1991)," you're overclaiming — find the middle paper that applied March to your domain and respond to that instead.
 
 ### Step 6: Output
 Present as a structured literature table:
 
 ```
-| Paper | Venue | Year | Conversation | Key Result | Relevance to Us |
-|-------|-------|------|-------------|------------|-----------------|
+| Paper | Venue | Year | Role (Context/Anchor) | Conversation | Key Result | Relevance to Us |
+|-------|-------|------|-----------------------|-------------|------------|-----------------|
 ```
 
 Plus a narrative summary of the landscape (3-5 paragraphs), organized by conversation, not chronologically.
