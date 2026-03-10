@@ -1,115 +1,33 @@
 # CC-in-Sleep: Autonomous Overnight Research with Claude Code
 
-Claude Code skills for running autonomous research workflows overnight — review papers, search literature, run analyses — while you sleep.
+Claude Code skills for autonomous overnight research workflows — review, literature search, analysis — adapted for **organization theory / strategy** (ASQ, AMR, SMJ, Organization Science, AMJ).
 
-Forked from [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) and adapted for **organization theory / strategy scholarship** (ASQ, AMR, SMJ, Organization Science).
+Forked from [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep).
 
-## What's Different from the Original
+## What's Different
 
-The original repo targets ML/CS researchers running GPU experiments for NeurIPS/ICML. This fork is rebuilt for social science:
+Original targets ML/CS (NeurIPS/ICML, GPU experiments). This fork is for social science:
 
-| | Original | This Fork |
-|---|---|---|
-| Reviewer persona | NeurIPS/ICML ML reviewer | ASQ/AMR/SMJ/OrgSci reviewer |
-| Fix actions | GPU experiments, model code | Theory refinement, Python robustness checks, literature integration |
-| Analysis tools | PyTorch, perplexity/accuracy | pandas, statsmodels, linearmodels |
-| Table format | Ad hoc | AER/SMJ standard (coefficients, SEs in parens, significance stars) |
-| Literature search | Keyword only, last 2 years | Author neighborhoods, forward citations, Semantic Scholar API, foundational works included |
-| Theory framework | None | Tension types taxonomy, contribution threat checks, outcome scenario analysis |
-| Writing style | None | Anti-AI-writing constraints for academic tone |
+- **Reviewer**: ASQ/AMR/SMJ/OrgSci senior reviewer persona
+- **Fixes**: Theory refinement, Python robustness checks, literature integration (not GPU experiments)
+- **Tables**: AER/ASQ/SMJ standard format
+- **Lit search**: Author neighborhoods + forward citations + Semantic Scholar API (not just keywords)
+- **Theory**: Tension types taxonomy, contribution threat checks, outcome scenario analysis
+- **Style**: Anti-AI-writing constraints
 
-## Prerequisites
-
-1. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
-2. [Codex CLI](https://github.com/openai/codex) with MCP server (needed for `research-review` and `auto-review-loop`):
-   ```bash
-   npm install -g @openai/codex
-   claude mcp add codex -s user -- codex mcp-server
-   ```
-
-## Installation
+## Setup
 
 ```bash
+# Install
 git clone https://github.com/xilan-zhang/cc-in-sleep.git
 cp -r cc-in-sleep/* ~/.claude/skills/cc-in-sleep/
+
+# Codex MCP (needed for review skills)
+npm install -g @openai/codex
+claude mcp add codex -s user -- codex mcp-server
 ```
 
-## Skills
-
-### `/research-review` — Interactive Deep Review
-Get a multi-round critical review from an external LLM via Codex MCP. You stay awake and guide the conversation.
-
-```
-/research-review my paper on network formation in refugee entrepreneurship
-```
-
-**What it does:**
-- Compiles your paper's context (claims, methods, results, weaknesses)
-- Sends to external LLM with `xhigh` reasoning as a senior OT/Strategy reviewer
-- You iterate with follow-ups: reframing, mock reviews, claims matrices
-
-### `/auto-review-loop` — Autonomous Review + Fix (Overnight)
-The main overnight skill. Autonomously loops up to 4 rounds: review → implement fixes → re-review.
-
-```
-/auto-review-loop SMJ R&R revision
-```
-
-**What it does:**
-- Round 1: External LLM reviews the paper, scores 1-10, lists weaknesses
-- If score < 6: implements fixes (theory reframing, robustness checks in Python, literature additions)
-- Checks for contribution threats before rewriting
-- Re-submits to reviewer, repeats until score >= 6 or 4 rounds done
-- Produces `AUTO_REVIEW.md` with full round-by-round log
-- Ends with outcome scenario analysis (what if results don't pan out?)
-
-**Stop condition:** Score >= 6 AND verdict contains "ready" or "almost"
-
-### `/research-lit` — Literature Search + Gap Analysis
-Autonomous literature mapping with a pre-sleep briefing step.
-
-```
-/research-lit institutional environments and entrepreneurial entry
-```
-
-**What it does:**
-1. **Asks you first** (before you sleep): seed authors? local paper folders? target journal? scope?
-2. Keyword search via Semantic Scholar API + Google Scholar
-3. Author neighborhood search (faculty pages, Google Scholar profiles, SSRN)
-4. Forward citation search from anchor papers
-5. Groups papers into theoretical conversations, flags contribution threats
-6. Outputs structured literature table + narrative summary
-
-### `/analyze-results` — Field Experiment Analysis
-Run statistical analysis on existing data with AER/SMJ formatted output.
-
-```
-/analyze-results treatment effects in cohort 2 data
-```
-
-**Output format:**
-```
-                    (1)         (2)         (3)
-                  Revenue    Revenue    Revenue
-Treatment          0.234**     0.198*     0.215**
-                  (0.098)    (0.102)    (0.099)
-Controls             No        Yes        Yes
-District FE          No         No        Yes
-N                   1,200      1,180      1,180
-R²                 0.045      0.112      0.134
-```
-
-### `/monitor-experiment` — Check Running Analyses
-Check on Python scripts running in the background.
-
-```
-/monitor-experiment
-```
-
-## Overnight Setup
-
-For fully autonomous runs without permission prompts, add to `~/.claude/settings.json`:
-
+For overnight runs without permission prompts, add to `~/.claude/settings.json`:
 ```json
 {
   "permissions": {
@@ -126,32 +44,50 @@ For fully autonomous runs without permission prompts, add to `~/.claude/settings
 }
 ```
 
-## Customization
+## Skills
 
-### Target Journal
-The skills include journal-specific heuristics for ManSci, SMJ, OrgSci, AMJ, and SEJ. The reviewer persona and feedback are tailored accordingly.
+| Skill | What it does | Overnight? |
+|-------|-------------|------------|
+| `/auto-review-loop` | Review → fix → re-review, up to 4 rounds | Yes |
+| `/research-review` | Interactive deep review via Codex MCP | No (you guide it) |
+| `/research-lit` | Literature search with author neighborhoods + forward citations | Yes (after pre-sleep briefing) |
+| `/analyze-results` | Run analyses, output AER/ASQ/SMJ tables | Yes |
+| `/monitor-experiment` | Check running Python scripts | Yes |
 
-### Theoretical Framework
-Reviews use a tension types taxonomy to diagnose contribution:
-- Scope condition violation
-- Mechanism substitution
-- Overlooked heterogeneity
-- Level-of-analysis gap
-- Boundary condition on established mechanism
+### `/auto-review-loop` — the main overnight skill
 
-### Writing Style
-All outputs follow anti-AI-writing constraints (see `references/style.md`): no em dashes, no "Crucially/Importantly," analytical working-document tone.
+```
+/auto-review-loop SMJ R&R revision
+```
 
-## Typical Overnight Workflow
+Sends your paper to an external LLM reviewer (ASQ/SMJ level), gets a score + weaknesses, then autonomously implements fixes: theory reframing, contribution threat checks, Python robustness analyses, literature integration. Loops until score >= 6 or 4 rounds. Produces `AUTO_REVIEW.md` with round-by-round log and outcome scenario analysis.
 
-1. Navigate to your project directory
-2. Run the skill:
-   ```
-   /auto-review-loop SMJ R&R paper
-   ```
-3. Answer any pre-sleep questions (seed references, scope)
-4. Sleep
-5. Wake up to `AUTO_REVIEW.md` with what happened overnight
+### `/research-lit` — overnight literature mapping
+
+```
+/research-lit institutional environments and entrepreneurial entry
+```
+
+Asks for seed authors/papers before you sleep, then runs keyword search, author neighborhood search (faculty pages, Google Scholar, SSRN), and forward citations. Groups papers into theoretical conversations. Flags contribution threats.
+
+### `/analyze-results` — field experiment analysis
+
+```
+/analyze-results treatment effects in cohort 2 data
+```
+
+Outputs AER/ASQ/SMJ standard regression tables (coefficients, SEs in parens, significance stars, controls/FE/N/R-squared rows).
+
+## Journal Heuristics
+
+Reviews are tailored to target journal:
+- **ASQ**: Most theory-forward. Loves boundary conditions on established mechanisms.
+- **AMR**: Pure theory. Mechanism must be novel and well-specified.
+- **SMJ**: Strategic implications must be clear. What should firms do differently?
+- **Organization Science**: Theory-forward. Boundary conditions and mechanism precision.
+- **AMJ**: Balances theory and evidence. "What we didn't know before."
+- **Management Science**: Clean identification, precise mechanism.
+- **SEJ**: Must advance entrepreneurship theory specifically.
 
 ## License
 

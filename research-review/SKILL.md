@@ -93,10 +93,12 @@ If the paper's tension doesn't fit any of these cleanly, flag it — it may be u
 ## Journal Heuristics
 
 Tailor feedback to the target journal:
-- **Management Science:** Clean identification, precise mechanism. Less concerned with broad theoretical contribution.
+- **Administrative Science Quarterly:** Most theory-forward. Loves boundary conditions on established mechanisms. Mechanism must be novel and precisely specified.
+- **Academy of Management Review:** Pure theory. Mechanism must be novel and well-specified. No empirics.
 - **Strategic Management Journal:** Strategic implications must be clear. What should firms do differently?
-- **Organization Science:** Most theory-forward. Loves boundary conditions on established mechanisms.
+- **Organization Science:** Theory-forward. Boundary conditions and mechanism precision.
 - **Academy of Management Journal:** Balances theory and evidence. Framed as "what we didn't know before."
+- **Management Science:** Clean identification, precise mechanism. Less concerned with broad theoretical contribution.
 - **Strategic Entrepreneurship Journal:** Must advance entrepreneurship theory specifically.
 
 ## Writing Style
